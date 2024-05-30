@@ -6,29 +6,27 @@ import { Loader } from '../Components/Loader'
 
 function AllRoutes() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<MainLayout><Outlet /></MainLayout>}>
-            {RoutesDetails?.map(({ path, Component, exact }) => {
-              return (
-                <Route
-                  key={path}
-                  path={path}
-                  element={
-                    <Suspense fallback={<Loader />}>
-                      <Component />
-                    </Suspense>
-                  }
-                  exact={exact}
-                />
-              )
-            })}
-          </Route>
-          <Route path='*' element={<Navigate to='/log_Console' />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout><Outlet /></MainLayout>}>
+          {RoutesDetails?.map(({ path, Component, exact }) => {
+            return (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <Suspense fallback={<Loader />}>
+                    <Component />
+                  </Suspense>
+                }
+                exact={exact}
+              />
+            )
+          })}
+        </Route>
+        <Route path='*' element={<Navigate to='/log_Console' />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 export default React.memo(AllRoutes)

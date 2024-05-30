@@ -8,7 +8,7 @@ function Header() {
     return (
         <div className='header'>
             <div className='header-left'>
-                <img className='SiteLogo' src={SITE_image} height={40} width={100} alt="SITE image" />
+                <img onClick={() => window.location.reload()} className='SiteLogo' src={SITE_image} height={40} width={100} alt="SITE image" />
                 <img className='ConsoleLogo' src={Log_console_image} height={60} width={150} alt="Log console image" />
             </div>
             <div className='header-right'>

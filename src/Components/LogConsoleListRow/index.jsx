@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import ToolTip from '../Tooltip';
 
-const LogListRow = ({ Log, }) => {
+const LogListRow = ({ Log }) => {
     return (
         <>
             <tr key={Log.log_id} >
@@ -14,8 +15,8 @@ const LogListRow = ({ Log, }) => {
                 <td>{Log.user_id || '-'}</td>
                 <td>{Log.user_full_name || '-'}</td>
                 <td>{Log.ip_address || '-'}</td>
-                <td className='truncate'>{Log.user_agent || '-'}</td>
-                <td className='truncate'>{Log.message || '-'}</td>
+                <ToolTip text={Log.user_agent}><td className='truncate'>{Log.user_agent || '-'}</td></ToolTip>
+                <ToolTip text={Log.message}><td className='truncate'>{Log.message || '-'}</td></ToolTip>
                 <td>{Log.generic_schema_id || '-'}</td>
                 <td>{Log.ef_module_id || '-'}</td>
                 <td>{Log.ef_request_id || '-'}</td>
@@ -32,7 +33,7 @@ const LogListRow = ({ Log, }) => {
 }
 
 LogListRow.propTypes = {
-    Log: PropTypes.any
+    Log: PropTypes.object
 };
 
 

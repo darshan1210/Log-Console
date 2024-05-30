@@ -21,7 +21,9 @@ function LogConsole() {
             let matches = true;
 
             if (formData.sID && log.user_id !== formData.sID) matches = false;
-            if (formData.sFullName && log.user_full_name !== formData.sFullName) matches = false;
+
+            if (formData.sFullName && !log.user_full_name.toLowerCase().includes(formData.sFullName.toLowerCase())) matches = false;
+
             if (formData.sMassage && !log.message.includes(formData.sMassage)) matches = false;
             if (formData.sModuleId && log.ef_module_id !== formData.sModuleId) matches = false;
             if (formData.sRichiestaId && log.ef_request_id !== formData.sRichiestaId) matches = false;
@@ -77,11 +79,15 @@ function LogConsole() {
                                         control={control}
                                         render={({ field: { onChange, value, ref } }) => (
                                             <Form.Control
+                                                type='text'
                                                 aria-label="UserId"
                                                 aria-describedby="basic-addon1"
                                                 ref={ref}
                                                 value={value}
-                                                onChange={(e) => onChange(e)}
+                                                onChange={(e) => {
+                                                    e.target.value = e.target.value?.trim() && e.target.value?.replace(/[^0-9]/g, '');
+                                                    onChange(e)
+                                                }}
                                             />
                                         )}
                                     />
@@ -142,7 +148,10 @@ function LogConsole() {
                                             type="text"
                                             ref={ref}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                e.target.value = e.target.value?.trim() && e.target.value?.replace(/[^0-9]/g, '');
+                                                onChange(e)
+                                            }}
                                         />
                                     )}
                                 />
@@ -161,7 +170,10 @@ function LogConsole() {
                                             type="text"
                                             ref={ref}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                e.target.value = e.target.value?.trim() && e.target.value?.replace(/[^0-9]/g, '');
+                                                onChange(e)
+                                            }}
                                         />
                                     )}
                                 />

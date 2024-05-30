@@ -56,6 +56,9 @@ const LogDataTable = ({ TableData }) => {
     function handlePageEvent(page) {
         setCurrentPage(page);
     }
+    const totalPages = useMemo(() => {
+        return Math.ceil(Totaldata / rowsPerPage);
+    }, [Totaldata, rowsPerPage]);
 
     function exportCSV(logs) {
         if (!logs || !logs.length) {
@@ -82,35 +85,23 @@ const LogDataTable = ({ TableData }) => {
         document.body.removeChild(a);
     }
 
-    useEffect(() => {
-        document.title = 'Log Console';
-    })
-
-
     return (
         <>
 
-            <div >
+            <div>
                 {TableData?.length && <div className='ExportCSV-btn'>
                     <Button variant="outline-primary" onClick={() => { exportCSV(TableData) }}>
                         Esporta
                     </Button>
                 </div>}
+                <div className='ms-5'>
+                    <strong>{TableData?.length}</strong> risultati <span>{`(${totalPages} pagine)`}</span>
+                </div>
                 <DataTable
                     columns={columns}
-                    header={{
-                        left: {
-                            rows: false
-                        },
-                        right: {
-                            search: false,
-                            filter: false
-                        }
-                    }}
                     sortEvent={handleSort}
                     totalRecord={mainData && (Totaldata || 0)}
                     pageChangeEvent={handlePageEvent}
-                    isLoading={false}
                     pagination={{ currentPage: currentPage, pageSize: rowsPerPage }}
                 >
                     {mainData && mainData?.map((Log, index) => {

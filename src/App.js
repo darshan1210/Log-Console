@@ -8,7 +8,6 @@ import AllRoutes from './Routes/index'
 import './Assets/styles/main.scss'
 
 function App() {
-
   return (
     <div className="App">
       <Suspense fallback={<Loader />}>
