@@ -1,0 +1,9 @@
+.Form-Wrapper {
+    margin: 30px;
+}
+
+@media screen and (max-width:690px) {
+    .Form-Wrapper {
+        margin: 30px 10px;
+    }
+}

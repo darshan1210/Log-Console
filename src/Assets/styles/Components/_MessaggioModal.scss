@@ -1,0 +1,22 @@
+.Messaggio-modal {
+    .Messaggio-Title {
+        color: #6C757D;
+    }
+
+    .ModalBody {
+        margin: 0 0 0 15px;
+    }
+
+    .Messaggio-text {
+        font-size: .8em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            width: fit-content;
+            padding: 10px 10px;
+        }
+    }
+
+}
