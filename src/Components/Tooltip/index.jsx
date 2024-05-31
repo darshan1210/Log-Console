@@ -8,6 +8,7 @@ function ToolTip({ children, text }) {
         <OverlayTrigger
             key="top"
             placement="top"
+            // show
             overlay={
                 <Tooltip id={text}>
                     {text}

@@ -4,3 +4,34 @@ input[type="datetime-local"] {
     border: 1px solid #cecece;
     border-radius: 5px;
 }
+
+.autoExpand {
+    overflow-y: auto;
+    resize: none;
+    width: 100%;
+    min-width: 305px;
+
+    &::-webkit-scrollbar {
+        visibility: hidden;
+    }
+
+}
+
+.autoExpand:focus {
+    height: auto;
+    /* Reset height to auto on focus */
+    height: calc(1.5em + 5px);
+    /* Initial height calculation */
+}
+
+.autoExpand[rows] {
+    height: auto;
+    height: calc(1.5em + 5px);
+    /* Adjust height based on content */
+}
+
+.autoExpand::after {
+    content: attr(value) ' ';
+    visibility: hidden;
+    white-space: pre-wrap;
+}

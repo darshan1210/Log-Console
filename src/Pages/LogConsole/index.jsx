@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Accordion, Button, Card, Col, Form, InputGroup, Row } from 'react-bootstrap';
+
 import { Controller, useForm } from "react-hook-form"
-import CustomToggle from '../../Components/CustomAccordionToggle';
 import { InfoIcon } from '../../Assets/SVGs';
 import MessaggioModal from '../../Components/MessaggioModal';
 import LogDataTable from '../../Components/LogsDataTable';
@@ -9,12 +9,11 @@ import LogData from '../../Utils/Data/logs_json_mock_data__v01.json'
 
 
 function LogConsole() {
-    const [accordionToggle, setAccordionToggle] = useState(false)
     const [show, setShow] = useState(false);
     const [TableData, setTableData] = useState(null)
 
     const handleClose = () => setShow(false);
-    const { control, handleSubmit } = useForm()
+    const { control, handleSubmit, reset, setValue } = useForm()
 
     function filterLogs(formData, logs) {
         return logs.filter(log => {
@@ -58,6 +57,13 @@ function LogConsole() {
         const filteredLogs = filterLogs(data, LogData);
         setTableData(filteredLogs)
     }
+
+    const onReset = () => {
+        reset();
+        setValue("sMassage", "")
+        setTableData(null)
+    }
+
 
 
     return (
@@ -125,10 +131,18 @@ function LogConsole() {
                                     render={({ field: { onChange, value, ref } }) => (
                                         <Form.Control
                                             as="textarea"
-                                            placeholder='Autosize height based on content lines'
+                                            className="autoExpand"
                                             ref={ref}
                                             value={value}
-                                            onChange={(e) => onChange(e)}
+                                            onChange={(e) => {
+                                                onChange(e)
+                                                e.target.style.height = 'auto';
+                                                e.target.style.height = `${e.target.scrollHeight}px`;
+                                            }}
+                                            onFocus={(e) => {
+                                                e.target.style.height = 'auto';
+                                                e.target.style.height = `${e.target.scrollHeight}px`;
+                                            }}
                                         />
                                     )}
                                 />
@@ -220,12 +234,10 @@ function LogConsole() {
                         </Row>
 
 
-                        <Accordion className='mt-3' defaultActiveKey="0">
-                            <Card>
-                                <Card.Header>
-                                    <CustomToggle setAccordionToggle={setAccordionToggle} accordionToggle={accordionToggle} eventKey="1"> RICERCA AVANZATA</CustomToggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="1">
+                        <Accordion className='mt-3 '>
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>RICERCA AVANZATA</Accordion.Header>
+                                <Accordion.Body>
                                     <Card.Body>
                                         <Row lg={12} className='mt-3'>
                                             <Col lg={2}>
@@ -363,9 +375,8 @@ function LogConsole() {
                                                             placeholder="Select Service"
                                                             onChange={(e) => { onChange(e) }}
                                                         >
-                                                            <option value='' > Nessun valore selezionato </option>
+                                                            <option value='' >Nessun valore selezionato </option>
                                                             <option value="elixForms">elixForms</option>
-                                                            <option value="myApp">myApp</option>
                                                             <option value="myApp">myApp</option>
                                                             <option value="(null)">{'(null)'}</option>
                                                         </Form.Select>
@@ -395,16 +406,19 @@ function LogConsole() {
                                             </Col>
                                         </Row>
                                     </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
+                                </Accordion.Body>
+                            </Accordion.Item>
                         </Accordion>
 
+
                     </Card.Body>
-                    <Card.Footer className="d-flex justify-content-center">
+                    <Card.Footer className="d-flex justify-content-center gap-3">
+                        <Button type='reset' onClick={onReset} variant="outline-secondary" >Ripristina</Button>
                         <Button type='submit' variant="primary" >Cerca</Button>
                     </Card.Footer>
                 </Form>
             </Card>
+
             {TableData !== null && <LogDataTable TableData={TableData} />}
             <MessaggioModal show={show} handleClose={handleClose} />
         </div>

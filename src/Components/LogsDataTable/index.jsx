@@ -14,7 +14,11 @@ const LogDataTable = ({ TableData }) => {
     const [columns] = useState(LogsColums)
     const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [TableData])
 
+    //
     const sortedData = useMemo(() => {
         let sortableItems = [...TableData];
         if (sortConfig.key !== null) {
@@ -89,14 +93,17 @@ const LogDataTable = ({ TableData }) => {
         <>
 
             <div>
-                {TableData?.length && <div className='ExportCSV-btn'>
+                {TableData?.length && <div className='Table-info'>
+
+                    <div>
+                        <strong>{TableData?.length}</strong> Risultati <span>{`(${totalPages} pagine)`}</span>
+                    </div>
                     <Button variant="outline-primary" onClick={() => { exportCSV(TableData) }}>
                         Esporta
                     </Button>
+
                 </div>}
-                <div className='ms-5'>
-                    <strong>{TableData?.length}</strong> risultati <span>{`(${totalPages} pagine)`}</span>
-                </div>
+
                 <DataTable
                     columns={columns}
                     sortEvent={handleSort}

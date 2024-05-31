@@ -9,12 +9,17 @@
   text-overflow: ellipsis;
 }
 
-.ExportCSV-btn {
+.Table-info {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: center;
 
   Button {
     margin: 0 50px 10px 0;
+  }
+
+  div {
+    margin: 0 0 0 50px;
   }
 }
 
@@ -139,6 +144,11 @@
   }
 
 }
+
+// .tooltip-inner {
+//   min-width: 50vw !important;
+//   max-height: 60vh !important;
+// }
 
 .pagination {
   display: flex;
