@@ -413,7 +413,7 @@ function LogConsole() {
 
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center gap-3">
-                        <Button type='reset' onClick={onReset} variant="outline-secondary" >Ripristina</Button>
+                        <Button type='reset' onClick={onReset} variant="outline-secondary" >Reset</Button>
                         <Button type='submit' variant="primary" >Cerca</Button>
                     </Card.Footer>
                 </Form>
